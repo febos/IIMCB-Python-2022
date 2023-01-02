@@ -1,0 +1,44 @@
+in<html>
+   <head>
+      <title>Pseudo Jupyter Notebook</title>
+      <style>
+          textarea {
+            padding: 10px;
+            vertical-align: top;
+          }
+          textarea:focus {
+            outline-style: solid;
+            outline-width: 2px;
+          }
+      </style>
+      <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+   </head>
+   <body>
+      <table>
+          {% for item in cells %}
+            <form action="/execute_cell/{{ item[0] }}" method="post" id="form{{ item[0] }}">
+              <tr>
+                <td>
+                  In [{% if item[3] > 0 %}{{ item[3] }}{% else %} {% endif %}]
+                </td>
+                <td>
+                    <button type="submit">Execute cell</button>
+                    <button formaction="/remove_cell/{{ item[0] }}" type="submit">Remove cell</button>
+                    <br>
+                    <textarea name="input{{ item[0] }}" cols="80" style='max-height: 300px'>{{ item[1] }}</textarea>
+                    <div style="width:300px; max-width:300px; display:block; white-space: pre-wrap;">{{ item[2] }}</div> <!-- maybe don't show this when no output -->
+                    <hr>
+                </td>
+              </tr>
+            </form>
+          {% endfor %}
+          <tr>
+            <form action="/add_cell" method="post">
+              <button type="submit">Add a cell</button>
+            </form>
+          </tr>
+      </table>
+
+      <script src="{{ url_for('static',filename='js/scripts.js') }}"></script>
+   </body>
+</html>
