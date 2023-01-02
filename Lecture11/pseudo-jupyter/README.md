@@ -1,5 +1,5 @@
 # Pseudo Jupyter Notebook
-### demo on Flask&HTML (MIPT 2020)
+### demo on Flask&HTML (IIMCB 2023)
 
 
 ### Flask official tutorial:
